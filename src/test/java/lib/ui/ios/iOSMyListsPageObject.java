@@ -2,6 +2,7 @@ package lib.ui.ios;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.MyListsPageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class iOSMyListsPageObject extends MyListsPageObject {
     static {
@@ -11,7 +12,7 @@ public class iOSMyListsPageObject extends MyListsPageObject {
         POPUP_TITLE  = "id:Sync your saved articles?";
         SWIPE_TRASH_BUTTON = "id:swipe action delete";
     }
-    public iOSMyListsPageObject(AppiumDriver driver)
+    public iOSMyListsPageObject(RemoteWebDriver driver)
     {
         super(driver);
     }

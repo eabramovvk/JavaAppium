@@ -11,7 +11,7 @@ public class ArticleTests extends CoreTestCase {
     @Test //Ex6: Тест: assert title
     public void testCheckArticleTitlePresent() {
         String textToSearch = "Java";
-        String articleToOpen = "Object-oriented programming language";
+        String articleToOpen = "bject-oriented programming language";
 
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();

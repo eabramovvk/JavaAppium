@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -28,43 +29,51 @@ abstract public class SearchPageObject extends MainPageObject
     }
     /* TEMPLATE METHODS */
 
+    @Step("Initializing the search field")
     public void initSearchInput() {
         this.WaitForElementAndClick(SEARCH_INIT_ELEMENT, "Cannot find and click SEARCH_INIT_ELEMENT", 5);
         this.WaitForElementPresent(SEARCH_INIT_ELEMENT, "Cannot find search element after clicking search init element", 5);
     }
 
+    @Step("Typing in search field")
     public void typeSearchLine(String search_line)
     {
         this.WaitForElementAndSendKeys(SEARCH_INPUT, "Cannot find SEARCH_TEXT_FIELD or send SEARCH_INPUT keys", 5, search_line);
     }
 
+    @Step("Waiting for search result")
     public void waitForSearchResult(String substring)
     {
         String search_result_xpath = getResultSearchElement(substring);
         this.WaitForElementPresent(search_result_xpath, "Cannot find search result with substring " + substring, 5);
     }
 
+    @Step("Waiting for cancel button appear")
     public void waitForCancelButtonToAppear()
     {
         this.WaitForElementPresent(SEARCH_CANCEL_BUTTON, "Cannot find search cancel button", 5);
     }
 
+    @Step("Waiting for results disappear")
     public void waitForSearchResultsToDisapper()
     {
         this.WaitForElementNotPresent(SEARCH_RESULT_ELEMENTS, "Search results are still present", 5);
     }
 
+    @Step("Click cancel search")
     public void clickCancelSearch()
     {
         this.WaitForElementAndClick(SEARCH_CANCEL_BUTTON, "Cannot press cancel search button", 5);
     }
 
+    @Step("Check search results count")
     public void checkSearchResultsCount(int expected_quantity)
     {
         this.WaitForElementPresent(SEARCH_RESULT_ELEMENTS, "Cannot wait for SEARCH_RESULT_ELEMENTS", 5);
         this.assertElementsCountComparision(SEARCH_RESULT_ELEMENTS, "Not expected elements count", 5, expected_quantity);
     }
 
+    @Step("Click by article with any substring text")
     public void clickByArticleWithSubstring(String substring)
     {
         String search_result_xpath = getResultSearchElement(substring);

@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
@@ -15,6 +17,11 @@ public class MyListsTest extends CoreTestCase {
             password = "QAZwsx123!";
 
     @Test //Ex5: Тест: сохранение двух статей
+    @Features(value = {@Feature(value = "MyList"), @Feature(value = "Search"), @Feature(value = "Article")})
+    @DisplayName("Save two articles and delete one")
+    @Description("Search, choose and add article to list, add second, delete one")
+    @Step("Start testDeleteArticleFromReadingList")
+    @Severity(value = SeverityLevel.CRITICAL)
     public void testDeleteArticleFromReadingList() throws InterruptedException {
 
         String textToSearch = "Java";
@@ -49,7 +56,7 @@ public class MyListsTest extends CoreTestCase {
             Auth.submitForm();
             ArticlePageObject.waitForTitleElement();
 
-            assertEquals("We are not on the same page after login", article_title, ArticlePageObject.getArticleTitle());
+            Assert.assertEquals("We are not on the same page after login", article_title, ArticlePageObject.getArticleTitle());
 
             ArticlePageObject.addArticleToMySaved();
         }

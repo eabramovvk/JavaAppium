@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import lib.Platform;
@@ -35,13 +36,16 @@ abstract public class ArticlePageObject extends MainPageObject {
     }
     /* TEMPLATE METHODS */
 
+    @Step("Waiting for title on the article page")
     public WebElement waitForTitleElement()
     {
         return this.WaitForElementPresent(TITLE_ID, "No element with " + TITLE_ID + " id found", 15);
     }
 
+    @Step("Get article title")
     public String getArticleTitle(){
         WebElement title_element = waitForTitleElement();
+        screenshot(this.takeScreenshoot("article_title"));
         if(Platform.getInstance().isAndroid()){
             return title_element.getAttribute("text");
         } else if(Platform.getInstance().isIOS()){
@@ -51,6 +55,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         }
     }
 
+    @Step("Swiping to footer on the article page")
     public void swipeToFooter(){
         if(Platform.getInstance().isAndroid()){
             this.swipeUpToFindElement(FOOTER_ELEMENT, "Cannot find the end of article", 40);
@@ -61,6 +66,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         }
     }
 
+    @Step("Adding the article to MyList First time")
     public void addArticleToMyListFirstTime(String name_of_folder)
     {
         this.WaitForElementAndClick(
@@ -106,6 +112,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         );
     }
 
+    @Step("Close article")
     public void closeArticle()
     {
         if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()){
@@ -116,6 +123,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         }
     }
 
+    @Step("Add article to existing list")
     public void addArticleToExistingList(String name_of_folder)
     {
 
@@ -144,6 +152,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         );
     }
 
+    @Step("Check Title present")
     public void checkTitlePresentWithAssert()
     {
         this.assertElementPresent(
@@ -152,11 +161,13 @@ abstract public class ArticlePageObject extends MainPageObject {
         );
     }
 
+    @Step("Add article to Mysaved")
     public void addArticlesToSaved()
     {
         this.WaitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON_ID, "Cannot find save button", 5);
     }
 
+    @Step("Add article to Mysaved")
     public void addArticleToMySaved(){
         if(Platform.getInstance().isMW()){
             this.removeArticleFromSavedIfItAdded();
@@ -164,6 +175,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         this.WaitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON_ID, "Cannot find option to add article to reading list", 5);
     }
 
+    @Step("Remove article from MySaved")
     public void removeArticleFromSavedIfItAdded(){
         if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)){
             this.WaitForElementAndClick(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
